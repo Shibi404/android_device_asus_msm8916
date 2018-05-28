@@ -170,6 +170,10 @@ PRODUCT_PACKAGES += \
     izat.conf \
     sap.conf
 
+# FlipFlap
+PRODUCT_PACKAGES += \
+   FlipFlap
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
