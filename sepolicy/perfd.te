@@ -1,4 +1,9 @@
 type perfd, domain;
 type perfd_exec, exec_type, vendor_file_type, file_type;
 
-init_daemon_domain(perfd)
+allow perfd { sysfs_thermal sysfs_memory }:dir search;
+allow perfd sysfs_thermal:file w_file_perms;
+
+allow perfd sysfs_memory:file { read open write };
+
+allow perfd perfd:capability sys_ptrace;
