@@ -14,19 +14,6 @@
 # limitations under the License.
 #
 
-# OpenGapps
-ifeq ($(shell test -e vendor/opengapps/build/opengapps-packages.mk && echo -n yes), yes)
-    $(call inherit-product, device/asus/msm8916-common/opengapps.mk)
-endif
-
-# PixelGapps
-ifeq ($(shell test -e vendor/gapps/config.mk && echo -n yes), yes)
-    TARGET_GAPPS_ARCH=arm64
-    TARGET_DENSITY=xhdpi
-    IS_PHONE=true
-    $(call inherit-product, vendor/gapps/config.mk)
-endif
-
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
