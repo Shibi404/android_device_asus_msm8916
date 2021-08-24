@@ -67,7 +67,6 @@
             <instance>default</instance>
         </interface>
         <interface>
-    <hal format="hidl">
             <name>IDrmFactory</name>
             <instance>widevine</instance>
             <instance>default</instance>
