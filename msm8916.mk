@@ -227,6 +227,10 @@ PRODUCT_PACKAGES += \
     keystore.msm8916
 endif
 
+# Lights
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.msm8916
+
 # LiveDisplay
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-legacymm \
