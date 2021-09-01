@@ -236,6 +236,11 @@ vendor/lib/libWVStreamControlAPI_L3.so|61673304827483d44b735a3dd08f0783d10ce92d
 vendor/lib/drm/libdrmwvmplugin.so|9f11ef67ea76ee95a43ed317a5cf479b9321d6d0
 vendor/lib/mediadrm/libwvdrmengine.so|70b94e8514f45c25a9a53f21186138a4026f4d67
 
+# DRM (Widevine) - from daisy - daisy_sprout:10/QKQ1.191002.002/V11.0.18.0.QDLMIXM
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine|e130b8f1c8d46d8a185b00cba5ff8a2a871ee94c
+vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc|dee5b7838ac561a2292e89fc0c4ccd1932224215
+vendor/lib64/libwvhidl.so|9720fa37d6bfe685ee2d8752f7760a950ba2aef1
+
 # Firmware
 etc/firmware/a225p5_pm4.fw
 etc/firmware/a420_pfp.fw
@@ -464,9 +469,6 @@ vendor/lib/libsmwrapper.so
 
 # Widevine
 vendor/bin/move_widevine_data.sh
-vendor/bin/hw/android.hardware.drm@1.2-service.widevine
-vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
-vendor/lib64/libwvhidl.so
 
 # Peripheral manager - from daisy - xiaomi/daisy/daisy_sprout:10/QKQ1.191002.002/V11.0.7.0.QDLMIXM
 vendor/bin/pm-proxy|1f216a6f54e9b97c026f3f3bc4d7d441d58d90a7
