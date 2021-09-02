@@ -463,10 +463,6 @@ vendor/lib64/libthermalioctl.so
 -vendor/lib64/libtime_genoff.so
 -vendor/lib/libtime_genoff.so
 
-# Voice recognition
-vendor/lib/hw/sound_trigger.primary.msm8916.so
-vendor/lib/libsmwrapper.so
-
 # Widevine
 vendor/bin/move_widevine_data.sh
 
