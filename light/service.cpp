@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 The LineageOS Project
+ * Copyright (C) 2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.light@2.0-service.msm8916"
+#define LOG_TAG "android.hardware.light@2.0-service.asus_8953"
 
 #include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
@@ -32,8 +32,10 @@ using android::hardware::light::V2_0::implementation::Light;
 
 const static std::string kLcdBacklightPath = "/sys/class/leds/lcd-backlight/brightness";
 const static std::string kLcdMaxBacklightPath = "/sys/class/leds/lcd-backlight/max_brightness";
-const static std::string kChargingLedPath = "/sys/class/leds/charging/brightness";
-const static std::string kBlinkingLedPath = "/sys/class/leds/rgb/control";
+const static std::string kRedLedPath = "/sys/class/leds/red/brightness";
+const static std::string kRedBlinkPath = "/sys/class/leds/red/pwm_us";
+const static std::string kGreenLedPath = "/sys/class/leds/green/brightness";
+const static std::string kGreenBlinkPath = "/sys/class/leds/green/pwm_us";
 
 int main() {
     uint32_t lcdMaxBrightness = 255;
@@ -54,16 +56,38 @@ int main() {
         lcdMaxBacklight >> lcdMaxBrightness;
     }
 
-    std::ofstream blinkingLed(kBlinkingLedPath);
-    std::ofstream chargingLed(kChargingLedPath);
-    if (!chargingLed && !blinkingLed) {
-        LOG(ERROR) << "Failed to open notification or charging LED!";
+    std::ofstream redLed(kRedLedPath);
+    if (!redLed) {
+        LOG(ERROR) << "Failed to open " << kRedLedPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    }
+
+    std::ofstream redBlink(kRedBlinkPath);
+    if (!redBlink) {
+        LOG(ERROR) << "Failed to open " << kRedBlinkPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    }
+
+    std::ofstream greenLed(kGreenLedPath);
+    if (!greenLed) {
+        LOG(ERROR) << "Failed to open " << kGreenLedPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
+        return -errno;
+    }
+
+    std::ofstream greenBlink(kGreenBlinkPath);
+    if (!greenBlink) {
+        LOG(ERROR) << "Failed to open " << kGreenBlinkPath << ", error=" << errno
+                   << " (" << strerror(errno) << ")";
         return -errno;
     }
 
     android::sp<ILight> service = new Light(
             {std::move(lcdBacklight), lcdMaxBrightness},
-            std::move(chargingLed), std::move(blinkingLed));
+            std::move(redLed), std::move(redBlink),
+            std::move(greenLed), std::move(greenBlink));
 
     configureRpcThreadpool(1, true);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 The LineageOS Project
+ * Copyright (C) 2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 #include <android-base/logging.h>
 
 namespace {
+
 using android::hardware::light::V2_0::LightState;
 
 static constexpr int DEFAULT_MAX_BRIGHTNESS = 255;
@@ -34,6 +35,7 @@ static uint32_t rgbToBrightness(const LightState& state) {
 static bool isLit(const LightState& state) {
     return (state.color & 0x00ffffff);
 }
+
 }  // anonymous namespace
 
 namespace android {
@@ -43,21 +45,21 @@ namespace V2_0 {
 namespace implementation {
 
 Light::Light(std::pair<std::ofstream, uint32_t>&& lcd_backlight,
-             std::ofstream&& charging_led, std::ofstream&& blinking_led)
+             std::ofstream&& red_led, std::ofstream&& red_blink,
+             std::ofstream&& green_led, std::ofstream&& green_blink)
     : mLcdBacklight(std::move(lcd_backlight)),
-      mChargingLed(std::move(charging_led)),
-      mBlinkingLed(std::move(blinking_led)) {
+      mRedLed(std::move(red_led)),
+      mRedBlink(std::move(red_blink)),
+      mGreenLed(std::move(green_led)),
+      mGreenBlink(std::move(green_blink)) {
+    auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
     auto backlightFn(std::bind(&Light::setLcdBacklight, this, std::placeholders::_1));
     auto batteryFn(std::bind(&Light::setBatteryLight, this, std::placeholders::_1));
+    auto notifFn(std::bind(&Light::setNotificationLight, this, std::placeholders::_1));
+    mLights.emplace(std::make_pair(Type::ATTENTION, attnFn));
     mLights.emplace(std::make_pair(Type::BACKLIGHT, backlightFn));
     mLights.emplace(std::make_pair(Type::BATTERY, batteryFn));
-
-    if (mBlinkingLed) {
-        auto attnFn(std::bind(&Light::setAttentionLight, this, std::placeholders::_1));
-        auto notifFn(std::bind(&Light::setNotificationLight, this, std::placeholders::_1));
-        mLights.emplace(std::make_pair(Type::ATTENTION, attnFn));
-        mLights.emplace(std::make_pair(Type::NOTIFICATIONS, notifFn));
-    }
+    mLights.emplace(std::make_pair(Type::NOTIFICATIONS, notifFn));
 }
 
 // Methods from ::android::hardware::light::V2_0::ILight follow.
@@ -85,6 +87,12 @@ Return<void> Light::getSupportedTypes(getSupportedTypes_cb _hidl_cb) {
     return Void();
 }
 
+void Light::setAttentionLight(const LightState& state) {
+    std::lock_guard<std::mutex> lock(mLock);
+    mAttentionState = state;
+    setSpeakerBatteryLightLocked();
+}
+
 void Light::setLcdBacklight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
 
@@ -104,50 +112,86 @@ void Light::setLcdBacklight(const LightState& state) {
 void Light::setBatteryLight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     mBatteryState = state;
-    setSpeakerLightLocked();
-}
-
-void Light::setAttentionLight(const LightState& state) {
-    std::lock_guard<std::mutex> lock(mLock);
-    mAttentionState = state;
-    setSpeakerLightLocked();
+    setSpeakerBatteryLightLocked();
 }
 
 void Light::setNotificationLight(const LightState& state) {
     std::lock_guard<std::mutex> lock(mLock);
     mNotificationState = state;
-    setSpeakerLightLocked();
+    setSpeakerBatteryLightLocked();
 }
 
-void Light::setSpeakerLightLocked() {
-    if (mBlinkingLed) {
-        if (isLit(mNotificationState)) {
-            int onMs, offMs;
+void Light::setSpeakerBatteryLightLocked() {
+    if (isLit(mNotificationState)) {
+        setSpeakerLightLocked(mNotificationState);
+    } else if (isLit(mAttentionState)) {
+        setSpeakerLightLocked(mAttentionState);
+    } else if (isLit(mBatteryState)) {
+        setSpeakerLightLocked(mBatteryState);
+    } else {
+        // Lights off
+        mRedLed << 0 << std::endl;
+        mGreenLed << 0 << std::endl;
+    }
+}
 
-            switch (mNotificationState.flashMode)
-            {
-            case Flash::TIMED:
-                onMs = mNotificationState.flashOnMs;
-                offMs = mNotificationState.flashOffMs;
-                break;
-            default:
-                onMs = 1;
-                offMs = 0;
-                break;
-            }
+void Light::setSpeakerLightLocked(const LightState& state) {
+    int red, green, blink;
+    int totalMs, pwm, fake_pwm;
+    int onMs, offMs;
+    uint32_t colorRGB = state.color;
 
-            mBlinkingLed << "FFFFFF " << onMs << " " << offMs << " 0 0" << std::endl;
-        } else if (isLit(mBatteryState) || isLit(mAttentionState)) {
-            mBlinkingLed << "FFFFFF 1 0 0 0" << std::endl;
+    switch (state.flashMode) {
+        case Flash::TIMED:
+            onMs = state.flashOnMs;
+            offMs = state.flashOffMs;
+            break;
+        case Flash::NONE:
+        default:
+            onMs = 0;
+            offMs = 0;
+            break;
+    }
+
+    red = (colorRGB >> 16) & 0xFF;
+    green = (colorRGB >> 8) & 0xFF;
+
+    blink = onMs > 0 && offMs > 0;
+
+    // Disable all blinking to start
+    mRedBlink << 0 << std::endl;
+    mGreenBlink << 0 << std::endl;
+
+    if (blink) {
+        totalMs = onMs + offMs;
+        // pwm specifies the ratio of ON versus OFF
+        // pwm = 0 -> always off
+        // pwm = 255 -> always on
+        fake_pwm = (onMs * 255) / totalMs;
+
+        // the low 4 bits are ignored, so round up if necessary
+        if (fake_pwm > 0 && fake_pwm < 16)
+            fake_pwm = 16;
+
+        pwm = offMs * 1000;
+
+        if (green) {
+            mGreenLed << fake_pwm << std::endl;
+            mGreenBlink << pwm << std::endl;
         } else {
-            mBlinkingLed << "000000 0 0 0 0" << std::endl;
+            mRedLed << fake_pwm << std::endl;
+            mRedBlink << pwm << std::endl;
         }
     } else {
-        if (isLit(mBatteryState)) {
-            mChargingLed << DEFAULT_MAX_BRIGHTNESS << std::endl;
+        mRedBlink << 100 << std::endl;
+        mGreenBlink << 100 << std::endl;
+
+        if (!red || (red && green)) {
+            mRedLed << red << std::endl;
+            mGreenLed << green << std::endl;
         } else {
-            // Lights off
-            mChargingLed << 0 << std::endl;
+            mGreenLed << green << std::endl;
+            mRedLed << red << std::endl;
         }
     }
 }
