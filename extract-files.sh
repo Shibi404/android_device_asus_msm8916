@@ -53,7 +53,7 @@ fi
 function blob_fixup() {
     case "${1}" in
         vendor/lib64/libwvhidl.so)
-            patchelf --replace-needed libprotobuf-cpp-lite.so libprotobuf-cpp-lite-v29.so "${2}"
+            "${PATCHELF}" --replace-needed libprotobuf-cpp-lite.so libprotobuf-cpp-lite-v29.so "${2}"
             ;;
     esac
 }
