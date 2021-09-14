@@ -113,6 +113,10 @@ debug.stagefright.ccodec=0
 persist.data.netmgrd.qos.enable=true
 ro.use_data_netmgrd=true
 
+# Network manager
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.iwlan_operation_mode=legacy
+
 # Play store
 ro.com.google.clientidbase=android-asus
 ro.com.google.clientidbase.am=android-asus
