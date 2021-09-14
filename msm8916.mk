@@ -224,10 +224,6 @@ PRODUCT_PACKAGES += \
     keystore.msm8916
 endif
 
-# Lights
-PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.asus_8953
-
 # Media
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
