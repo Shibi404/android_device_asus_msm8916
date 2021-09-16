@@ -26,28 +26,24 @@ vendor/lib/rfsa/adsp/libfastcvadsp.so|9818625bfa018f517e32a8f4a1e7fb4b255e5049
 vendor/lib/rfsa/adsp/libscveObjectSegmentation_skel.so|944169db3ac67056b92ef4f850f69346958370b5
 vendor/lib/rfsa/adsp/libscveT2T_skel.so|91b9200dbb982abf0d6b440668252d892a616f66
 
-# Audio
-bin/tfamode:vendor/bin/tfamode
-etc/Tfa9887.cnt
-lib/libtfa9887.so
-lib64/libtfa9887.so
-vendor/lib64/libacdb-fts.so
-vendor/lib64/libacdbloader.so
-vendor/lib64/libacdbmapper.so
-vendor/lib64/libacdbrtac.so
-vendor/lib64/libadiertac.so
-vendor/lib64/libaudcal.so
-vendor/lib64/libaudioalsa.so
-vendor/lib/libacdb-fts.so
-vendor/lib/libacdbloader.so
-vendor/lib/libacdbmapper.so
-vendor/lib/libacdbrtac.so
-vendor/lib/libadiertac.so
-vendor/lib/libaudcal.so
-vendor/lib/libaudioalsa.so
-vendor/lib/soundfx/libqcbassboost.so
-vendor/lib/soundfx/libqcreverb.so
-vendor/lib/soundfx/libqcvirt.so
+# Audio - from LA.UM.9.6.2.r1-04100-89xx.0
+vendor/lib/libacdb-fts.so|fee2b1f0b93c28f5ef0a4d65736cca01c4275975
+vendor/lib/libacdbloader.so|1f5867fbd9491eb3dda91d74ab2d8713da243c5a
+vendor/lib/libacdbrtac.so|50f9c46c1ed2758338db567b00e8eee1889ab21a
+vendor/lib/libadiertac.so|5c80bbb7ae8fb329ec4c2518c4e336b010bd57dc
+vendor/lib/libadm.so|a5e6c65b7133440b4550234db4454e4c81627f66
+vendor/lib/libaudcal.so|fc5b7759e6fc2ba8ecd8ee2bc0e1576ebb1221b5
+vendor/lib/libaudioalsa.so|58feb2c5cbc4ac6e23ef4896c87785bed8db3c80
+vendor/lib/libdrc.so|303d67b5bfea162ae994d3817de317258035c42a
+vendor/lib/soundfx/libqcbassboost.so|670474cfd302150304e0c9efcb418100d6f17cad
+vendor/lib/soundfx/libqcreverb.so|839436acdd02cd79d577b9ad0b4084353b9116fa
+vendor/lib/soundfx/libqcvirt.so|2aa8fd3dedcd2538fa72768f70e664cfc5b6abe6
+vendor/lib64/libacdb-fts.so|ae8275322050d1bd5cebf2cee15864fcf3c87fdf
+vendor/lib64/libacdbloader.so|d32fcac74a11ae0f982b60af13aea0c061383e1b
+vendor/lib64/libacdbrtac.so|547a42e2ed54d13e780fab26134ec0fd90054d4c
+vendor/lib64/libadiertac.so|98a8c2702d4e203689e4a80c69c4b1cf93af1567
+vendor/lib64/libaudcal.so|758db7040b1efb88a65e9ba2196aa9b27edebd49
+vendor/lib64/libaudioalsa.so|534d4dc07fecea0611273c745721b1ed2015a3a3
 
 # Battery
 bin/vm_bms:vendor/bin/vm_bms
