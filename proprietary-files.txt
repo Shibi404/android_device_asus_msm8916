@@ -149,13 +149,47 @@ vendor/lib/libxditk_DIT_Qualcomm.so
 vendor/lib/libxditk_mmcamera2_stats_algorithm.so
 vendor/lib/libxditk_Network.so
 
-# DRM - from crackling
-bin/qseecomd:vendor/bin/qseecomd|ac14b419bcac711330014dc147df8719fe9d44da
-vendor/lib64/libdrmfs.so|645998dfcb0d204ef7eb5a2f7ccd96d71eb045be
-vendor/lib64/libdrmtime.so|71b44bd96e194b43b7c6e50a97eb5efd5f5f95e4
-vendor/lib64/libQSEEComAPI.so|5ec09d3085cc6a7157ed094d677bbfd1479fbac4
-vendor/lib64/librpmb.so|25bfd9f541db45756cf0b03bcc8284a90408ff18
-vendor/lib64/libssd.so|4e1ca3d1f0dc7deaa0fd58e1dc6407d8cd020852
+# DPM - from LA.UM.9.6.2.r1-04100-89xx.0
+system_ext/bin/dpmd|9d53950064e2937c8859a329dcaa8153b89a5485
+system_ext/etc/dpm/dpm.conf|95e27da8c989e96c6faea6f0697bce11955b62a5
+system_ext/etc/init/dpmd.rc|738b638ff04cda368e22c03e16baf90ba157a6fc
+system_ext/etc/permissions/com.qti.dpmframework.xml|c4b7ad0879d00c1eba4f3fe3a88ddb8aa153629a
+system_ext/etc/permissions/dpmapi.xml|9158c9789cc7135a685b3fb27f8cc27108b51fef
+system_ext/framework/com.qti.dpmframework.jar|96a29e28b3abffb9223daadd67459e3f5a3271df
+system_ext/framework/dpmapi.jar|2e2fbe2257a697b96a644c774136da0554430d3f
+system_ext/lib64/com.qualcomm.qti.dpm.api@1.0.so|7003110f7d18b164929960ee0a67797ca9a524fe
+system_ext/lib64/libdpmctmgr.so|7635c7c314e7328e14bf08ccebce55c76a28c022
+system_ext/lib64/libdpmfdmgr.so|de47c07b4d092e91eebfc58a2a9424c0f84a6b87
+system_ext/lib64/libdpmtcm.so|dd2417890101f44304456560b802533b834649ff
+system_ext/lib64/libdpmframework.so|040e38cd46a218593800bcbfa2d1aea637c1c79c
+-system_ext/priv-app/dpmserviceapp/dpmserviceapp.apk|74ec0d8e2ef3d7e3b0a730da9b97237921778ac4
+vendor/bin/dpmQmiMgr|4fe936478b0da1ee20c6222234b80d478a72cc2a
+vendor/etc/init/dpmQmiMgr.rc|1538743661a5c48c15cd105beaad20f72953885a
+vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so|c5c893e86d38b8aa8cd277ccb8b011fb2f19995e
+vendor/lib64/libdpmqmihal.so|ffcd85e1f6bf7d54f37953edc2cb2c4a61fc894a
+
+# DRM - from LA.UM.9.6.2.r1-04100-89xx.0
+vendor/bin/qseecomd|12fde638ad4528c06fe336342862fd0ffc033dd0
+vendor/lib/libQSEEComAPI.so|961b8c99bf5d2a53b607cebf399fbdafb48c9bc6
+vendor/lib64/libdrmfs.so|346200f33bbbf16b86a7676b1dbe79bc1f7baf9b
+vendor/lib64/libdrmtime.so|b3f024dae4aaa62c4fc33965847d1627387c6b56
+vendor/lib64/libGPreqcancel.so|d3278679f75371f7d6813f69ee04cda66e46b445
+vendor/lib64/libGPreqcancel_svc.so|ed0618e97aad6e1539ca439222c23e3f4e64c9a0
+vendor/lib64/libcpion.so|602ffa6e92be0f2a19c8de782e1601135c7dd2a8
+vendor/lib64/libhdcpsrm.so|8822f0408bdcc11dfc661321bfd3c253f0306e0c
+vendor/lib64/liboemcrypto.so|cff69ca64f9015e17cdcc2c45c992d262d864013
+vendor/lib64/libqisl.so|e9c402aed643ee094daaf495f1a3a1f29542d602
+vendor/lib64/libQSEEComAPI.so|17cf281138050f87e29b2b71e63d131249b10f6f
+vendor/lib64/librpmb.so|a5ee7dfbbae868a253d7413c866800ea1146d7c8
+vendor/lib64/libSecureUILib.so|e9dd8017f40691925c59a074705be7cf11130780
+vendor/lib64/libsecureui.so|eef8db680df8e9b47d4725433cd0d3886cc8aa25
+vendor/lib64/libsecureui_svcsock.so|2232f56927964f10d41868919d94711930d50ed0
+vendor/lib64/libssd.so|6dcbfc531e69a3c7eeaf21e85ac0202b8fa82d55
+vendor/lib64/libStDrvInt.so|7c921ee6db896233f9ea03f1fb3a9b7d9434e7dc
+
+# DRM - from Lmi 11/RKQ1.200826.002/V12.2.4.0.RJKMIXM
+vendor/lib64/libops.so|b2223e64db9d8f84262da7a8621013d3c63b6c98
+vendor/lib64/libspl.so|0fa8c0711f72fc8a914dce044cf8dddd79ee62e1
 
 # GPS - from crackling
 -lib64/libloc_api_v02.so|ca97a81ea91ca5c7d8dd8c9a9054121ce1446b8a
