@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# inherit from the proprietary version
--include vendor/asus/msm8916-common/BoardConfigVendor.mk
+# Inherit the proprietary files
+include vendor/asus/msm8916-common/BoardConfigVendor.mk
 
 VENDOR_PATH := device/asus/msm8916-common
 
