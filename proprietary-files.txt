@@ -239,6 +239,11 @@ vendor/lib64/vendor.qti.hardware.qccsyshal@1.0.so|19a1f7ffb8118c207aa8cb23189966
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8916.so
 
+# Gatekeeper - from UL-ASUS_X01BD-WW-17.2018.2012.434-user
+vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
+vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
+vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so
+
 # Graphics - from LA.UM.9.6.2.r1-04100-89xx.0
 lib/libsdm-disp-apis.so:vendor/lib/libsdm-disp-apis.so|39d52eb5e311950a6b8eca35ac53758e7297e9cf
 lib64/libsdm-disp-apis.so:vendor/lib64/libsdm-disp-apis.so|752de98fed59c7d161a113b62d46e20a2c939789
