@@ -130,24 +130,6 @@ vendor/lib64/vendor.qti.latency@2.0.so|909bc76c76252f0824474f1b6c52dac7142c9c55
 # DIT - Camera Laser
 lib/DataSet/ispDB/ParameterDB.db
 lib/DataSet/ditSCidGen/msgchk.db
-lib/DIT_AT_BACK_HL.cfg
-lib/DIT_AT_BACK_NORMAL.cfg
-lib/DIT_AT_BACK_PREVIEW.cfg
-lib/DIT_AT_BACK_SR.cfg
-lib/DIT_AT_BACK_VIDEO.cfg
-lib/DIT_AT_FRONT_HL.cfg
-lib/DIT_AT_FRONT_NORMAL.cfg
-lib/DIT_AT_FRONT_PRE.cfg
-lib/DIT_AT_FRONT_VIDEO.cfg
-lib/DITConfig.cfg
-lib/libxditk_ArcSoftMOD.so
-lib/libxditk_AT.so
-lib/libxditk_ISP.so
-lib/libxditk_SR.so
-vendor/lib/libxditk_DIT_MSM8916.so
-vendor/lib/libxditk_DIT_Qualcomm.so
-vendor/lib/libxditk_mmcamera2_stats_algorithm.so
-vendor/lib/libxditk_Network.so
 
 # DPM - from LA.UM.9.6.2.r1-04100-89xx.0
 system_ext/bin/dpmd|9d53950064e2937c8859a329dcaa8153b89a5485
@@ -483,6 +465,3 @@ lib64/hw/sensors.msm8916.so:lib64/sensors.asus.so
 # Time services
 -vendor/lib64/libtime_genoff.so
 -vendor/lib/libtime_genoff.so
-
-# WideVine - from angler
-vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90abS
