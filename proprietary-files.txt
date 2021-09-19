@@ -555,11 +555,13 @@ vendor/lib64/vendor.qti.hardware.radio.ims@1.4.so
 vendor/lib64/vendor.qti.hardware.radio.ims@1.5.so
 vendor/lib64/vendor.qti.hardware.radio.ims@1.6.so
 vendor/lib64/vendor.qti.ims.callinfo@1.0.so
-vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
 vendor/lib64/vendor.qti.imsrtpservice@2.0.so
 vendor/lib64/vendor.qti.imsrtpservice@2.1-service-Impl.so
 vendor/lib64/vendor.qti.imsrtpservice@2.1.so
 vendor/lib64/libvcel.so
+
+# IMS - from LA.UM.9.6.2.r1-03600-89xx.0
+vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so|5d71371d3eb10481f95a018481dfb62a5929110d
 
 # Sensors - from LA.UM.9.6.2.r1-04100-89xx.0
 system_ext/lib/vendor.qti.hardware.sensorscalibrate@1.0.so|81934fd454fd30282ef1a8a90b7374317f6c42de
