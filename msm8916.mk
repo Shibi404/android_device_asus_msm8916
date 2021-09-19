@@ -171,6 +171,7 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
+    libandroid_net \
     gps.msm8916 \
     libshims_flp \
     libshims_get_process_name
